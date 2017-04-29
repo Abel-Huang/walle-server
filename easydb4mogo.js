@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 
 exports.insertMogo=function () {
-    mongoose.connect('mongodb://localhost/accounts');
+    mongoose.connect('mongodb://localhost/location');
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
@@ -13,9 +13,9 @@ exports.insertMogo=function () {
                 name:{type: String, unique: true},
                 password:String
             },
-            {collection: "accounts"}
+            {collection: "location"}
         );
-        var User = mongoose.model('accounts', userSchema);
+        var User = mongoose.model('location', userSchema);
 
         User.findOne({name:"WangEr"}, function(err, doc){
             if(err)

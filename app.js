@@ -78,7 +78,8 @@ clientObj.setPort=function (clientPort) {
     this.clientPort=clientPort;
 }
 
-var iconv = require('iconv-lite');
+//var iconv = require('iconv-lite');
+
 var net = require('net');
 var timeout = 20000;//超时
 var listenPort = 8989;//监听端口
@@ -86,23 +87,23 @@ var listenPort = 8989;//监听端口
 var server = net.createServer(function(socket){
     // 我们获得一个连接 - 该连接自动关联一个socket对象
     console.log('connect: ' +socket.remoteAddress + ':' + socket.remotePort+'  client has connected');
-    clientObj.setIP(socket.remoteAddress);
-    clientObj.setPort(socket.remotePort);
-    connectMap.push(clientObj);
-    console.log(connectMap.length);
-    socket.write('hello');
+    // clientObj.setIP(socket.remoteAddress);
+    // clientObj.setPort(socket.remotePort);
+    // connectMap.push(clientObj);
+    // console.log(connectMap.length);
+    // socket.write('hello');
     //接收到数据,并对收到的消息进行对应的处理
     socket.on('data',function(data){
         console.log('recv:' + data);
-        var resultStr=String(data);
-        //case0:
-        if(resultStr.replace('\n','')==='hello')
-            console.log('小车');
-        //case1：wifi
-        var str=resultStr.replace(/\+CWLAP:\(/g,'');
-        str=str.replace(/"/g,'');
-        var strArray=str.split(")");
-        var myInsert=require('./easymogo');
+        // var resultStr=String(data);
+        // //case0:
+        // if(resultStr.replace('\n','')==='hello')
+        //     console.log('小车');
+        // //case1：wifi
+        // var str=resultStr.replace(/\+CWLAP:\(/g,'');
+        // str=str.replace(/"/g,'');
+        // var strArray=str.split(")");
+        // var myInsert=require('./easymogo');
         //myInsert.insertMogo(strArray);
         //case2:bluetooth
     });
