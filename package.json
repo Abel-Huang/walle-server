@@ -6,8 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "socket.io": "*",
-    "mongoose": "*",
     "mongodb":"*"
   }
 }
