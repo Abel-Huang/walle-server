@@ -8,12 +8,26 @@ var MongoClient = require('mongodb').MongoClient;
 //db config
 var DB_CONN_STR = 'mongodb://admin:admin@localhost:27017/admin';
 var DB_NAME = 'walle';
-var COLLECTION_NAME = 'location';
+var COLLECTION_NAME = 'test';
 
-exports.insertMogo = function (insert_doc) {
+var IBEACON_DATA = 'ibeacon_data';
+var WIFI_DATA = "wifi_data";
+
+exports.insertMogo = function (type, insert_doc) {
 	MongoClient.connect(DB_CONN_STR, function (err, db) {
 		if (err) {
 			console.log('Error:' + err);
+			return;
+		}
+		switch (type) {
+		case "ibeaconData":
+			COLLECTION_NAME = IBEACON_DATA;
+			break;
+		case "wifiData":
+			COLLECTION_NAME = WIFI_DATA;
+			break;
+		default:
+			console.log("insert mongo: check type");
 			return;
 		}
 		db = db.db(DB_NAME);
@@ -27,7 +41,7 @@ exports.insertMogo = function (insert_doc) {
 					console.log('Error:' + err);
 					return;
 				} else
-					console.log('Result:' + result);
+					console.log(JSON.stringify(result));
 			});
 			db.close(err, db);
 		});
