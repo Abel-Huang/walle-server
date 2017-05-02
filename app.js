@@ -2,8 +2,6 @@ var net = require('net');
 var easymogo = require('./easymogo');
 var utils = require('./utils');
 
-// easymogo.queryMogo({"col1":"213"});
-
 // var connectMap = new Array();
 // var clientObj = new Object();
 // clientObj.setIP = function (clientIP) {
