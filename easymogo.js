@@ -6,8 +6,8 @@
 var MongoClient = require('mongodb').MongoClient;
 
 //db config
-var DB_CONN_STR = 'mongodb://admin:admin@localhost:27017/admin';
-var DB_NAME = 'walle';
+var DB_CONN_STR = 'mongodb://walle:walle@120.25.69.243:27017/walle';
+// var DB_NAME = 'walle';
 var COLLECTION_NAME = 'test';
 
 var IBEACON_DATA = 'ibeacon_data';
@@ -38,7 +38,7 @@ exports.insertMogo = function(type, insert_doc) {
 				console.log("insert mongo: check type");
 				return;
 		}
-		db = db.db(DB_NAME);
+		// db = db.db(DB_NAME);
 		db.collection(COLLECTION_NAME, function(err, collection) {
 			if (typeof(insert_doc) != "object") {
 				console.log("insertMogo params is not a object");
@@ -75,7 +75,7 @@ exports.queryMogo = function(type, queryStr, fun_callback) {
 				console.log("insert mongo: check type");
 				return;
 		}
-		db = db.db(DB_NAME);
+		// db = db.db(DB_NAME);
 		db.collection(COLLECTION_NAME).find(queryStr).toArray(function(err, result) {
 			if (err) {
 				console.log('Error:' + err);
