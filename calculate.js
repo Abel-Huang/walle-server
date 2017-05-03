@@ -6,8 +6,8 @@ rows:
 	[{
 		"_id": ObjectId("5908249430ed0c0f80c5473e"),
 		"location": {
-			"x": "10",
-			"y": "100"
+			"x": 10,
+			"y": 100
 		},
 		"timeStamp": ISODate("2017-05-01T18:04:30.372+08:00"),
 		"data": {
@@ -17,10 +17,10 @@ rows:
 		}
 	}]
 midSet: {
-	'{"x":"10","y":"-10"}': {
+	'{"x":10,"y":"-10}': {
 		'00 00 00 00 11 11 22 22 33 33 CC CC CC CC CC 16': [-100]
 	},
-	'{"x":"10","y":"100"}': {
+	'{"x":10,"y":100}': {
 		'00 00 00 00 11 11 22 22 33 33 CC CC CC CC CC 11': [-99, -95, -91, -99],
 		'00 00 00 00 11 11 22 22 33 33 CC CC CC CC CC 12': [-30, -32, -33, -33],
 		'00 00 00 00 11 11 22 22 33 33 CC CC CC CC CC 13': [-25, -21, -28, -33]
@@ -92,5 +92,11 @@ function dealWifiData(rows) {
 	easymogo.insertMogo("wifiDB", ansArray);
 }
 
-easymogo.queryMogo("ibeaconData", undefined, dealIbeaconData);
-easymogo.queryMogo("wifiData", undefined, dealWifiData);
+exports.start = function() {
+	//first clear previous documents
+	easymogo.clearCollection("ibeaconDB", {});
+	easymogo.clearCollection("wifiDB", {});
+	//calculate
+	easymogo.queryMogo("ibeaconData", undefined, dealIbeaconData);
+	easymogo.queryMogo("wifiData", undefined, dealWifiData);
+}

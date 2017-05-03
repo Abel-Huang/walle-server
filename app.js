@@ -75,35 +75,6 @@ var server = net.createServer(function (socket) {
 				console.log("json 不合法");
 				return;
 			}
-			// console.log(json);
-			// console.log(JSON.stringify(ibeaconDataBuf));
-
-			// console.log(data.toString('hex'));
-			// data = String(data);
-			// console.log('recv:' + data);
-			// var obj = new Object();
-			// obj.bluetooth=new Array();
-			// obj.wifi=new Array();
-			// obj.pos_x=0;
-			// obj.pos_y=0;
-			// easymogo.insertMogo(obj);
-
-			// if (data.replace('\n', '') === 'hello') {
-			// connectMap.push(clientObj);
-			// console.log(connectMap.length);
-			// }
-
-			// var resultStr=String(data);
-			// //case0:
-			// if(resultStr.replace('\n','')==='hello')
-			//     console.log('小车');
-			// //case1：wifi
-			// var str=resultStr.replace(/\+CWLAP:\(/g,'');
-			// str=str.replace(/"/g,'');
-			// var strArray=str.split(")");
-			// var easymogo=require('./easymogo');
-			//easymogo.insertMogo(strArray);
-			//case2:bluetooth
 		});
 
 		//数据错误事件
