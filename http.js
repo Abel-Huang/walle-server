@@ -3,6 +3,7 @@ var easymogo = require('./easymogo');
 var utils = require('./utils');
 var FastPriorityQueue = require("fastpriorityqueue");
 var generateDB = require("./calculate.js");
+var url = require("url");
 
 /*
 	request json:
@@ -119,7 +120,22 @@ var server = http.createServer(function(req, response) {
 			response.write('{"message":"ok"}');
 			response.end();
 		} else {
-			easymogo.queryMogo("ibeaconDB", undefined, dealResult, [postData, response]);
+			var pathname = url.parse(req.url).pathname;
+			console.log(pathname);
+			switch (pathname) {
+				case "/ibeacon":
+					easymogo.queryMogo("ibeaconDB", undefined, dealResult, [postData, response]);
+					break;
+				case "/wifi":
+					easymogo.queryMogo("wifiDB", undefined, dealResult, [postData, response]);
+					break;
+				default:
+					response.writeHead(200, {
+						"Content-Type": "application/json;charset=utf-8"
+					});
+					response.write('{"message":"path error"}');
+					response.end();
+			}
 		}
 	});
 }).listen(8080);

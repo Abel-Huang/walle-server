@@ -16,8 +16,8 @@
     utils.js : some useful tool function
     (more details is follow)
 ## More Details
-app.js json format:
-#### ibeacon
+#### app.js (used by smart car)
+ibeacon message format:
 ```json
 {
     "type": "ibeacon",
@@ -27,7 +27,7 @@ app.js json format:
     "rssi": -100
 }
 ```
-#### wifi
+wifi message format:
 ```json
 {
     "type": "wifi",
@@ -36,8 +36,14 @@ app.js json format:
     "data": "+CWLAP:(0,AirJ,-87,74:25:8a:47:3c:50,1,-36)+CWLAP:(4,TP-LINK_7F0A,-90,ec:26:ca:43:7f:0a,1,-14)"
 }
 ```
-http.js:
-#### getLocationApi
+#### http.js (used by app)
+**getLocationApi**
+
+by ibeacon:
+>url:/ibeacon
+
+>postdata:
+
 ```json
 {
     "00 00 00 00 11 11 22 22 33 33 CC CC CC CC CC 01":-90,
@@ -46,8 +52,26 @@ http.js:
     "00 00 00 00 11 11 22 22 33 33 CC CC CC CC CC 04":-40
 }
 ```
-#### generateDBs(generate the ibeaconDB&&wifiDB)
-this will regenerate some dbs, pay attention to use it
+by wifi:
+>url:/wifi
+
+>postdata:
+
+```json
+{
+    "74:25:8a:47:3c:50":-90,
+    "74:25:8a:47:3c:51":-90,
+    "74:25:8a:47:3c:52":-90,
+    "74:25:8a:47:3c:53":-90
+}
+```
+**generateDBs(generate the ibeaconDB&&wifiDB)**
+
+*this will regenerate some dbs, pay attention to use it*
+>url:/
+
+>postdata:
+
 ```json
 {
     "task":"g"
