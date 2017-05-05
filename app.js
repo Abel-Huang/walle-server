@@ -41,10 +41,13 @@ function insertWifi(json) {
 	easymogo.insertMogo("wifiData", wifiData);
 }
 
+var smartCarSocket=undefined;
+
 var listenPort = 8080; //监听端口
 var server = net.createServer(function(socket) {
 	// 我们获得一个连接 - 该连接自动关联一个socket对象
 	console.log('connect: ' + socket.remoteAddress + ':' + socket.remotePort + '  client has connected');
+	smartCarSocket=socket;
 	// clientObj.setIP(socket.remoteAddress);
 	// clientObj.setPort(socket.remotePort);
 	// socket.write('hello');
@@ -92,6 +95,7 @@ var server = net.createServer(function(socket) {
 	//客户端关闭事件
 	socket.on('close', function(data) {
 		console.log('close: ' + socket.remoteAddress + ' ' + socket.remotePort + '  client has disconnected');
+		smartCarSocket=undefined;
 		// clientObj.setIP(socket.remoteAddress);
 		// clientObj.setPort(socket.remotePort);
 		// if (utils.contains(connectMap, clientObj)) {

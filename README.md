@@ -3,7 +3,7 @@
 `nodejs && npm`
 ## Step
 1. `npm install`
-2. `node app.js` or `node calculate.js`
+2. `node walle.js`
 
 ## File Tree Introduction
     /Test : test folder
@@ -14,6 +14,7 @@
     easymogo : connect to mongodb
     http.js : api
     utils.js : some useful tool function
+    walle.js : core js
     (more details is follow)
 ## More Details
 #### app.js (used by smart car, the two json end with "\r\n")

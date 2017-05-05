@@ -34,7 +34,7 @@ function getDistence(ob1, ob2) {
 		array2.push(i);
 	}
 	var keySet = utils.array_union(array1, array2);
-	var count=0;
+	var count = 0;
 	for (var i = 0; i < keySet.length; i++) {
 		count++;
 		if (ob1[keySet[i]] == undefined && ob2[keySet[i]] == undefined) {
@@ -48,7 +48,7 @@ function getDistence(ob1, ob2) {
 			dis += (ob1[keySet[i]] - ob2[keySet[i]]) * (ob1[keySet[i]] - ob2[keySet[i]]);
 		}
 	}
-	return dis/count; //no sqrt
+	return dis / count; //no sqrt
 }
 
 function dealResult(rows, params) {
@@ -115,7 +115,7 @@ var server = http.createServer(function(req, response) {
 	});
 	req.addListener("end", function() {
 		postData = JSON.parse(postData);
-		if (postData.task != undefined) {
+		if (postData.task != undefined) { //所有指定task的请求，都认为是生成指纹库的请求
 			generateDB.start();
 			response.writeHead(200, {
 				"Content-Type": "application/json;charset=utf-8"
@@ -136,7 +136,7 @@ var server = http.createServer(function(req, response) {
 					response.writeHead(200, {
 						"Content-Type": "application/json;charset=utf-8"
 					});
-					response.write('{"message":"path error"}');
+					response.write('{"error":"path error"}');
 					response.end();
 			}
 		}
