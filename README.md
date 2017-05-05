@@ -68,4 +68,4 @@ Walle.js:
     "message":"control_content"
 }
 ```
-[*control_content*](https://github.com/sytuacmdyh/Indoor-Location-Car)
+[*control_content*](https://github.com/sytuacmdyh/Indoor-Location-Car#控制命令-control_content)
