@@ -56,8 +56,8 @@ function dealIbeaconData(rows) {
 			"data": data
 		}));
 	}
-	console.log(ansArray);
-	easymogo.insertMogo("ibeaconDB", ansArray);
+	if (ansArray.length != 0)
+		easymogo.insertMogo("ibeaconDB", ansArray);
 }
 
 function dealWifiData(rows) {
@@ -88,8 +88,8 @@ function dealWifiData(rows) {
 			"data": data
 		}));
 	}
-	console.log(ansArray);
-	easymogo.insertMogo("wifiDB", ansArray);
+	if (ansArray.length != 0)
+		easymogo.insertMogo("wifiDB", ansArray);
 }
 
 exports.start = function() {
