@@ -16,7 +16,7 @@
     utils.js : some useful tool function
     (more details is follow)
 ## More Details
-#### app.js (used by smart car)
+#### app.js (used by smart car, the two json end with "\r\n")
 ibeacon message format:
 ```json
 {

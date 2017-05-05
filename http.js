@@ -34,8 +34,11 @@ function getDistence(ob1, ob2) {
 		array2.push(i);
 	}
 	var keySet = utils.array_union(array1, array2);
+	var count=0;
 	for (var i = 0; i < keySet.length; i++) {
+		count++;
 		if (ob1[keySet[i]] == undefined && ob2[keySet[i]] == undefined) {
+			count--;
 			continue;
 		} else if (ob1[keySet[i]] == undefined) {
 			dis += (ob2[keySet[i]] - MIN_RSSI) * (ob2[keySet[i]] - MIN_RSSI);
@@ -45,7 +48,7 @@ function getDistence(ob1, ob2) {
 			dis += (ob1[keySet[i]] - ob2[keySet[i]]) * (ob1[keySet[i]] - ob2[keySet[i]]);
 		}
 	}
-	return dis; //no sqrt
+	return dis/count; //no sqrt
 }
 
 function dealResult(rows, params) {
@@ -138,6 +141,6 @@ var server = http.createServer(function(req, response) {
 			}
 		}
 	});
-}).listen(8080);
+}).listen(8081);
 
 console.log("server is listening");
