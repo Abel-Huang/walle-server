@@ -81,7 +81,7 @@ function dealWifiData(rows) {
 		var location = JSON.parse(i);
 		var data = new Object();
 		for (var j in midSet[i]) {
-			data[j] = utils.getMeanAndVariance(midSet[i][j]);
+			data[j.toUpperCase()] = utils.getMeanAndVariance(midSet[i][j]);
 		}
 		ansArray.push(new Object({
 			"location": location,

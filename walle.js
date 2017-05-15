@@ -9,6 +9,7 @@ var net = require('net');
 var smartCarSocket = undefined; //小车socket
 var socketPort = 8080; //小车socket监听端口
 var httpPort = 8081; //http port
+var INF = 100000000;
 
 //-------------------------------some function-------
 
@@ -43,7 +44,6 @@ function insertWifi(json) {
 }
 
 function getDistence(ob1, ob2) {
-	var MIN_RSSI = -127;
 	var dis = 0;
 	var array1 = new Array();
 	var array2 = new Array();
@@ -54,21 +54,21 @@ function getDistence(ob1, ob2) {
 		array2.push(i);
 	}
 	var keySet = utils.array_union(array1, array2);
+	// console.log(keySet);
 	var count = 0;
 	for (var i = 0; i < keySet.length; i++) {
-		count++;
-		if (ob1[keySet[i]] == undefined && ob2[keySet[i]] == undefined) {
-			count--;
+		if (keySet[i].length == 0)
 			continue;
-		} else if (ob1[keySet[i]] == undefined) {
-			dis += (ob2[keySet[i]] - MIN_RSSI) * (ob2[keySet[i]] - MIN_RSSI);
-		} else if (ob2[keySet[i]] == undefined) {
-			dis += (ob1[keySet[i]] - MIN_RSSI) * (ob1[keySet[i]] - MIN_RSSI);
-		} else {
+		if (!isNaN(Number(ob1[keySet[i]])) && !isNaN(Number(ob2[keySet[i]]))) {
 			dis += (ob1[keySet[i]] - ob2[keySet[i]]) * (ob1[keySet[i]] - ob2[keySet[i]]);
+			count++;
 		}
+		// console.log(dis);
 	}
-	return dis / count; //no sqrt
+	// console.log(dis + "--" + count);
+	if (count == 0)
+		return INF;
+	else return dis / count;
 }
 
 function dealResult(rows, params) {
@@ -89,6 +89,10 @@ function dealResult(rows, params) {
 			cmp_obj2[j] = data[j].mean;
 		}
 		var dis = getDistence(cmp_obj1, cmp_obj2);
+		// console.log(dis);
+		if (dis == INF) {
+			continue; //无穷远
+		}
 		p_que.add({
 			"location": rows[i].location,
 			"dis": dis
@@ -107,7 +111,7 @@ function dealResult(rows, params) {
 	}
 	// while (!p_que.isEmpty()) {
 	// 	console.log(p_que.poll());
-	// }	
+	// }
 	if (count > 0) {
 		var output = {
 			x: xx / count,
@@ -115,8 +119,8 @@ function dealResult(rows, params) {
 		}
 	} else {
 		var output = {
-			x: 0,
-			y: 0
+			x: -1,
+			y: -1
 		}
 	}
 
@@ -201,6 +205,7 @@ var httpServer = http.createServer(function(req, response) {
 			console.log(pathname);
 			switch (pathname) {
 				case "/ibeacon":
+					console.log(postData);
 					easymogo.queryMogo("ibeaconDB", undefined, dealResult, [postData, response]);
 					break;
 				case "/wifi":
