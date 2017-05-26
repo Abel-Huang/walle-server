@@ -11,7 +11,7 @@ var socketPort = 8080; //小车socket监听端口
 var httpPort = 8081; //http port
 var INF = 100000000;
 
-//-------------------------------some function-------
+//-------------------------------some callback function-------
 
 function initIbeaconBuf(ibeaconDataBuf, json) {
 	ibeaconDataBuf = new Object();
@@ -43,7 +43,7 @@ function insertWifi(json) {
 	easymogo.insertMogo("wifiData", wifiData);
 }
 
-function getDistence(ob1, ob2) {
+function getDistance(ob1, ob2) {
 	var dis = 0;
 	var array1 = new Array();
 	var array2 = new Array();
@@ -88,7 +88,7 @@ function dealResult(rows, params) {
 		for (var j in data) {
 			cmp_obj2[j] = data[j].mean;
 		}
-		var dis = getDistence(cmp_obj1, cmp_obj2);
+		var dis = getDistance(cmp_obj1, cmp_obj2);
 		// console.log(dis);
 		if (dis == INF) {
 			continue; //无穷远
@@ -147,7 +147,14 @@ var socketServer = net.createServer(function(socket) {
 		for (var i = 0; i < jsonArray.length; i++) {
 			if (jsonArray[i].length == 0)
 				continue;
-			var json = JSON.parse(jsonArray[i]);
+			var json = [];
+			try{
+				json = JSON.parse(jsonArray[i]);
+			} catch (err){
+				console.log(err);
+				return;
+			}
+
 			switch (json.type) {
 				case "ibeacon":
 					//首次接收到蓝牙信息，初始化ibeaconBuf中的值(只会在程序一开始的时候运行一次)
@@ -192,7 +199,12 @@ var httpServer = http.createServer(function(req, response) {
 		postData += postDataChunk;
 	});
 	req.addListener("end", function() {
-		postData = JSON.parse(postData);
+		try{
+			postData = JSON.parse(postData);
+		} catch (err){
+			console.log(err);
+			return;
+		}
 		if (postData.task != undefined) { //所有指定task的请求，都认为是生成指纹库的请求
 			generateDB.start();
 			response.writeHead(200, {
