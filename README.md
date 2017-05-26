@@ -15,7 +15,7 @@
     http.js : api
     utils.js : some useful tool function
     walle.js : core js
-## What you should know
+## What you need know
 Walle.js:
 1. getlocationAPI
 2. generateDBs
