@@ -257,3 +257,5 @@ var httpServer = http.createServer(function(req, response) {
 		}
 	});
 }).listen(httpPort);
+
+console.log("server has started");
